@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql_db:
+    image: mysql:8.0
+    container_name: pokemons_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: pokemons_db
+      MYSQL_USER: pokemon_user
+      MYSQL_PASSWORD: user_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - pokedex_network
+
+  # FastAPI Application
+  pokedex:
+    build: .
+    container_name: pokemons_api
+    environment:
+      DB_HOST: mysql_db
+      DB_USER: root
+      DB_PASSWORD: root_password
+      DB_NAME: pokemons_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    networks:
+      - pokedex_network
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  mysql_data:
+
+networks:
+  pokedex_network:
+    driver: bridge
