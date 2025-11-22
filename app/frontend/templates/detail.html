@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="detail-container">
+    <!-- Pokemon Image -->
+    <div style="text-align: center; margin-bottom: 30px;">
+        <img src="{{ url_for('static', path='img/pokemons/' + pokemon.name + '.svg') }}" 
+             alt="{{ pokemon.name }}" 
+             style="max-width: 200px; max-height: 200px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">
+    </div>
+    
+    <!-- Pokemon Name and ID -->
+    <div class="pokemon-name">#{{ pokemon.id }} - {{ pokemon.name }}</div>
+    
+    <!-- Pokemon Types -->
+    <div class="types-container" style="text-align: center; margin-bottom: 30px;">
+        {% set type_list = pokemon.types.split('/') %}
+        {% for type in type_list %}
+        <span class="type-badge type-{{ type.strip().lower() }}">{{ type.strip() }}</span>
+        {% endfor %}
+    </div>
+    
+    <!-- Pokemon Stats Grid -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 40px 0;">
+        <div class="stat-card">
+            <div style="font-size: 0.9em; font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px;">HP</div>
+            <div class="stat-value">{{ pokemon.hp }}</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width: {{ (pokemon.hp / maxStatValue) * 100 }}%"></div></div>
+        </div>
+        <div class="stat-card">
+            <div style="font-size: 0.9em; font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px;">Attack</div>
+            <div class="stat-value">{{ pokemon.attack }}</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width: {{ (pokemon.attack / maxStatValue) * 100 }}%"></div></div>
+        </div>
+        <div class="stat-card">
+            <div style="font-size: 0.9em; font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px;">Defense</div>
+            <div class="stat-value">{{ pokemon.defense }}</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width: {{ (pokemon.defense / maxStatValue) * 100 }}%"></div></div>
+        </div>
+        <div class="stat-card">
+            <div style="font-size: 0.9em; font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px;">Sp. Attack</div>
+            <div class="stat-value">{{ pokemon.sp_attack }}</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width: {{ (pokemon.sp_attack / maxStatValue) * 100 }}%"></div></div>
+        </div>
+        <div class="stat-card">
+            <div style="font-size: 0.9em; font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px;">Sp. Defense</div>
+            <div class="stat-value">{{ pokemon.sp_defense }}</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width: {{ (pokemon.sp_defense / maxStatValue) * 100 }}%"></div></div>
+        </div>
+        <div class="stat-card">
+            <div style="font-size: 0.9em; font-weight: 600; color: #666; text-transform: uppercase; margin-bottom: 10px;">Speed</div>
+            <div class="stat-value">{{ pokemon.speed }}</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width: {{ (pokemon.speed / maxStatValue) * 100 }}%"></div></div>
+        </div>
+    </div>
+    
+    <!-- Back Button -->
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="/" class="back-button">← Back</a>
+    </div>
+</div>
+{% endblock %}

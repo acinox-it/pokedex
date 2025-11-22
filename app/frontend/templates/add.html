@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container">
+    <h1 style="color: #667eea; margin-bottom: 30px; text-align: center;">Add a Pokémon</h1>
+    <form id="pokemonForm">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name *</label>
+            <input type="text" class="form-control" id="name" placeholder="E.g: Pikachu" required>
+        </div>
+        <div class="mb-3">
+            <label for="hp" class="form-label">HP (Health Points) *</label>
+            <input type="number" class="form-control" id="hp" placeholder="E.g: 45" min="1" max="300" required>
+        </div>
+        <div class="mb-3">
+            <label for="attack" class="form-label">Attack *</label>
+            <input type="number" class="form-control" id="attack" placeholder="E.g: 49" min="1" max="300" required>
+        </div>
+        <div class="mb-3">
+            <label for="defense" class="form-label">Defense *</label>
+            <input type="number" class="form-control" id="defense" placeholder="E.g: 40" min="1" max="300" required>
+        </div>
+        <div class="mb-3">
+            <label for="sp_attack" class="form-label">Sp. Attack *</label>
+            <input type="number" class="form-control" id="sp_attack" placeholder="E.g: 50" min="1" max="300" required>
+        </div>
+        <div class="mb-3">
+            <label for="sp_defense" class="form-label">Sp. Defense *</label>
+            <input type="number" class="form-control" id="sp_defense" placeholder="E.g: 50" min="1" max="300" required>
+        </div>
+        <div class="mb-3">
+            <label for="speed" class="form-label">Speed *</label>
+            <input type="number" class="form-control" id="speed" placeholder="E.g: 90" min="1" max="300" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Types (separated by /) *</label>
+            <input type="text" class="form-control" id="types" placeholder="E.g: Fire/Flying" required>
+            <small class="form-text text-muted">Valid types: Normal, Fire, Water, Electric, Grass, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy</small>
+        </div>
+        <div id="messageContainer"></div>
+        <button type="submit" class="btn btn-primary w-100">Add</button>
+        <a href="/" style="color: #667eea; text-decoration: none; display: block; text-align: center; margin-top: 20px;">← Back</a>
+    </form>
+</div>
+<script src="{{ url_for('static', path='js/add.js') }}"></script>
+{% endblock %}
