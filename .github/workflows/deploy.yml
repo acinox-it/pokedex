@@ -41,22 +41,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    # Option 1: Déployer sur Render
-    - name: Deploy to Render
+    - name: Deploy to Railway
       env:
-        RENDER_DEPLOY_KEY: ${{ secrets.RENDER_DEPLOY_KEY }}
+        RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
       run: |
-        if [ -n "$RENDER_DEPLOY_KEY" ]; then
-          curl -X POST https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=$RENDER_DEPLOY_KEY
-        fi
-    
-    # Option 2: Déployer sur Railway
-    # - name: Deploy to Railway
-    #   env:
-    #     RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-    #   run: |
-    #     npm install -g @railway/cli
-    #     railway deploy
+        npm install -g @railway/cli
+        railway up --environment production
 
   deploy-frontend:
     needs: build-and-test
