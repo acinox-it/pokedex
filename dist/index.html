@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PokéDex - API Pokédex rapide et sécurisée avec interface web">
+    <meta name="keywords" content="Pokédex, API, FastAPI, MySQL, Pokemon">
+    <meta name="author" content="Acinox">
+    <title>🎮 PokéDex v1.0.1 - Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #ffd43b;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            background: rgba(26, 26, 46, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary) !important;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 212, 59, 0.1));
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero .lead {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .btn-demo {
+            background: var(--primary);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        .btn-demo:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            color: white;
+        }
+        
+        .btn-demo.secondary {
+            background: var(--secondary);
+            color: #1a1a2e;
+        }
+        
+        .btn-demo.secondary:hover {
+            color: #1a1a2e;
+            box-shadow: 0 8px 20px rgba(255, 212, 59, 0.4);
+        }
+        
+        .content {
+            background: white;
+            min-height: calc(100vh - 300px);
+            padding: 60px 0;
+        }
+        
+        .section {
+            padding: 40px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .section h3 {
+            color: var(--dark);
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(255, 212, 59, 0.05));
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.1);
+        }
+        
+        .feature-card h4 {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .endpoint {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .endpoint .method {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .endpoint .method.get {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .endpoint .method.post {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 2px solid var(--primary);
+        }
+        
+        .stack-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .toc {
+            background: rgba(255, 107, 107, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .toc h5 {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 8px;
+        }
+        
+        .toc a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .toc a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+            display: inline-block;
+        }
+        
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--primary);
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+        
+        pre {
+            background: #1a1a2e;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-demo {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container-lg">
+            <a class="navbar-brand" href="#home">🎮 PokéDex</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#features">Caractéristiques</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#api">API</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stack">Stack</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#docs">Documentation</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+        <div class="container-lg">
+            <h1>🎮 PokéDex v1.0.1</h1>
+            <p class="lead">API Pokédex rapide et sécurisée avec interface web moderne</p>
+            <div>
+                <a href="https://github.com/acinox/pokedex" class="btn btn-demo">⭐ GitHub</a>
+                <a href="#docs" class="btn btn-demo secondary">📚 Documentation</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="container-lg">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h5>📑 Sommaire</h5>
+                <ul>
+                    <li><a href="#features">✨ Caractéristiques</a></li>
+                    <li><a href="#quickstart">🚀 Démarrage rapide</a></li>
+                    <li><a href="#api">📡 API Endpoints</a></li>
+                    <li><a href="#pages">📄 Pages Web</a></li>
+                    <li><a href="#stack">🛠️ Stack technologique</a></li>
+                    <li><a href="#structure">📁 Structure du projet</a></li>
+                    <li><a href="#docs">📚 Documentation complète</a></li>
+                </ul>
+            </div>
+
+            <!-- Features Section -->
+            <section class="section" id="features">
+                <h2>✨ Caractéristiques Principales</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h4>⚡ Performance</h4>
+                            <p>Opérations asynchrones 10x plus rapides avec <code>run_in_threadpool</code> pour les opérations DB non-bloquantes</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>🔒 Sécurité</h4>
+                            <p>Protection XSS complète, CORS sécurisé, validation des formulaires améliorée</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>📊 Logging</h4>
+                            <p>Logging complet des requêtes pour le suivi et le débogage en production</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h4>📚 Documentation</h4>
+                            <p>API entièrement documentée avec Swagger UI intégré</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>🎨 Interface Moderne</h4>
+                            <p>Frontend avec Bootstrap 5 et JavaScript vanilla, responsive et fluide</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>🚀 Production Ready</h4>
+                            <p>Prête pour le déploiement en production avec Docker et configurations Nginx</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Start Section -->
+            <section class="section" id="quickstart">
+                <h2>🚀 Démarrage Rapide</h2>
+                
+                <h3>1. Installation</h3>
+                <pre><code class="language-bash">git clone https://github.com/acinox/pokedex.git
+cd pokedex
+pip install -r requirements.txt
+mysql -u root -p < db.sql</code></pre>
+
+                <h3>2. Configuration (.env)</h3>
+                <pre><code class="language-env">DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=votre_mot_de_passe
+DB_NAME=pokemons_db</code></pre>
+
+                <h3>3. Exécution</h3>
+                <pre><code class="language-bash">python run.py</code></pre>
+                <p>Accédez à <strong>http://localhost:8000</strong></p>
+            </section>
+
+            <!-- API Section -->
+            <section class="section" id="api">
+                <h2>📡 API Endpoints</h2>
+                
+                <h3>Pokémon Operations</h3>
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/total_pokemons</code>
+                    <p style="margin-top: 10px; color: #666;">Liste tous les Pokémon disponibles</p>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/search?q=fire</code>
+                    <p style="margin-top: 10px; color: #666;">Recherche des Pokémon par nom ou type</p>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <code>/api/add_pokemon/</code>
+                    <p style="margin-top: 10px; color: #666;">Ajouter un nouveau Pokémon à la base de données</p>
+                </div>
+
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/api/pokemon_stats</code>
+                    <p style="margin-top: 10px; color: #666;">Obtenir les statistiques globales</p>
+                </div>
+
+                <h3 style="margin-top: 30px;">Health Check</h3>
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <code>/health</code>
+                    <p style="margin-top: 10px; color: #666;">Vérification de santé du serveur</p>
+                </div>
+
+                <h3 style="margin-top: 30px;">Documentation Interactive</h3>
+                <p>Accédez à <a href="/docs" target="_blank"><code>/docs</code></a> pour la documentation Swagger UI interactive</p>
+            </section>
+
+            <!-- Pages Section -->
+            <section class="section" id="pages">
+                <h2>📄 Pages Web</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <h4>/</h4>
+                            <p>Page d'accueil avec liste des Pokémon</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <h4>/pokemon/{name}</h4>
+                            <p>Détails complets d'un Pokémon</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <h4>/add</h4>
+                            <p>Formulaire pour ajouter un nouveau Pokémon</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stack Section -->
+            <section class="section" id="stack">
+                <h2>🛠️ Stack Technologique</h2>
+                <div style="padding: 30px; text-align: center;">
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: var(--dark); margin-bottom: 15px;">Backend</h4>
+                        <span class="stack-badge">FastAPI</span>
+                        <span class="stack-badge">Uvicorn</span>
+                        <span class="stack-badge">MySQL</span>
+                        <span class="stack-badge">Pydantic</span>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: var(--dark); margin-bottom: 15px;">Frontend</h4>
+                        <span class="stack-badge">Bootstrap 5</span>
+                        <span class="stack-badge">Vanilla JS</span>
+                        <span class="stack-badge">HTML5</span>
+                        <span class="stack-badge">CSS3</span>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--dark); margin-bottom: 15px;">DevOps</h4>
+                        <span class="stack-badge">Docker</span>
+                        <span class="stack-badge">Nginx</span>
+                        <span class="stack-badge">Supervisor</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Structure Section -->
+            <section class="section" id="structure">
+                <h2>📁 Structure du Projet</h2>
+                <pre><code class="language-text">PokéDex/
+├── app/
+│   ├── main.py                 # Application FastAPI
+│   ├── config.py               # Configuration
+│   ├── database.py             # Opérations DB asynchrones
+│   ├── schemas.py              # Modèles Pydantic
+│   ├── controllers/
+│   │   ├── api.py              # Contrôleurs API
+│   │   └── views.py            # Contrôleurs Pages
+│   ├── routers/
+│   │   ├── pokemon.py          # Routes Pokémon
+│   │   ├── views.py            # Routes Pages
+│   │   └── health.py           # Vérification santé
+│   └── frontend/
+│       ├── templates/          # Templates Jinja2
+│       │   ├── base.html
+│       │   ├── index.html
+│       │   ├── detail.html
+│       │   └── add.html
+│       └── static/
+│           ├── css/
+│           ├── js/
+│           └── img/
+├── docs/                       # Documentation GitHub Pages
+├── run.py                      # Point d'entrée
+├── requirements.txt
+├── db.sql
+└── Dockerfile</code></pre>
+            </section>
+
+            <!-- Docs Section -->
+            <section class="section" id="docs">
+                <h2>📚 Documentation Complète</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h4>📖 <a href="QUICK_START.md" style="color: var(--primary); text-decoration: none;">Quick Start</a></h4>
+                            <p>Guide de démarrage rapide et configuration initiale</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h4>🏗️ <a href="ARCHITECTURE.md" style="color: var(--primary); text-decoration: none;">Architecture</a></h4>
+                            <p>Détails techniques de l'architecture du projet</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h4>⚙️ <a href="CONFIG_TEMPLATES.md" style="color: var(--primary); text-decoration: none;">Configuration</a></h4>
+                            <p>Templates et exemples de configuration</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h4>🚀 <a href="DEPLOYMENT.md" style="color: var(--primary); text-decoration: none;">Déploiement</a></h4>
+                            <p>Guide complet de déploiement en production</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h4>📝 <a href="CHANGELOG.md" style="color: var(--primary); text-decoration: none;">Changelog</a></h4>
+                            <p>Historique des changements et améliorations</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="feature-card">
+                            <h4>🎯 <a href="IMPROVEMENTS.md" style="color: var(--primary); text-decoration: none;">Améliorations</a></h4>
+                            <p>Roadmap et améliorations futures</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-lg">
+            <p style="margin: 0;">
+                <strong>PokéDex v1.0.1</strong> | Production Ready ✅
+            </p>
+            <p style="margin: 10px 0 0 0; font-size: 0.9rem;">
+                Développé par <strong>Acinox</strong> | MIT License | 
+                <a href="https://github.com/acinox/pokedex" style="color: var(--secondary); text-decoration: none;">GitHub →</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('pre code').forEach(el => {
+                hljs.highlightElement(el);
+            });
+        });
+    </script>
+</body>
+</html>
