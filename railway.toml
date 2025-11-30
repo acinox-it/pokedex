@@ -1,0 +1,14 @@
+[build]
+# Use Dockerfile for building the image
+builder = "dockerfile"
+# Dockerfile path (default: Dockerfile in root)
+dockerfile = "Dockerfile"
+
+[deploy]
+# Command to run after build
+startCommand = "python run.py"
+# Port that the app listens on
+port = 8000
+# Restart policy
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3

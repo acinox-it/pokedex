@@ -2,6 +2,12 @@
 
 Un API Pokédex rapide et sécurisé avec interface web construit avec FastAPI et MySQL.
 
+## 🌐 Démo en Ligne
+
+**Voir l'app en action sur Railway:** https://pokedex.up.railway.app
+
+> L'app est hébergée sur Railway avec base de données MySQL complètement fonctionnelle
+
 ## 🚀 Démarrage Rapide
 
 ### 1. Installation
@@ -90,11 +96,33 @@ PokéDex/
 
 ## 🌍 Déploiement
 
-Voir `DEPLOYMENT` pour:
-- Installation Docker
-- Linux (Nginx + Supervisor)
-- Déploiement Heroku
-- Configurations de production
+## 🌍 Déploiement
+
+### Railway (Recommandé - 5 minutes)
+
+**Prérequis:**
+- Compte GitHub avec ce repository
+- Compte Railway (gratuit)
+
+**Étapes:**
+1. Push vers GitHub: `git push origin main`
+2. Allez sur [railway.app](https://railway.app)
+3. **New Project** → **Deploy from GitHub repo**
+4. Sélectionnez ce repository
+5. Ajoutez un service **MySQL**
+6. Configurez les variables (voir [RAILWAY_QUICK_START.md](./RAILWAY_QUICK_START.md))
+
+**C'est tout!** Railway redéploiera automatiquement à chaque push.
+
+Pour le guide complet: [RAILWAY_DEPLOYMENT.md](./RAILWAY_DEPLOYMENT.md)
+
+### Docker Local
+```bash
+docker-compose up
+```
+
+### Autres Options
+Voir `DEPLOYMENT.md` pour Linux, Heroku, etc.
 
 ## 📜 Licence
 
